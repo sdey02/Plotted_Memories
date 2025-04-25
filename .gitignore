@@ -7,3 +7,4 @@
 static/test.png
 templates/test.html
 /keys
+/.env
