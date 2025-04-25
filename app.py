@@ -3,10 +3,22 @@ from datetime import timedelta
 from flask_sqlalchemy import SQLAlchemy
 from cohere_api import test
 import json
+import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 app = Flask(__name__)
 app.secret_key = "hello"
-app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///users.sqlite3'
+
+# Use PostgreSQL if DATABASE_URL is set, otherwise fallback to SQLite
+database_url = os.environ.get("DATABASE_URL")
+if database_url:
+    app.config["SQLALCHEMY_DATABASE_URI"] = database_url
+else:
+    app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///users.sqlite3'
+
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.permanent_session_lifetime = timedelta(minutes=5)
 
@@ -147,6 +159,11 @@ def view():
     # user_id=user.id
     # user_images = images.query.filter_by(user_id=user_id).all()
     return render_template("view.html", users=users.query.all(), images=images.query.all())
+
+@app.route("/db_info")
+def db_info():
+    database_type = "PostgreSQL" if "postgresql" in str(db.engine.url) else "SQLite"
+    return f"Database type: {database_type}, Connection: {db.engine.url}"
 
 if __name__ == '__main__':
     with app.app_context():

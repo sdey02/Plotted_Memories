@@ -1,0 +1,8 @@
+flask==2.0.1
+flask-sqlalchemy==2.5.1
+geopy==2.2.0
+cohere==3.2.1
+spacy==3.2.0
+certifi==2021.10.8
+python-dotenv==0.19.2
+psycopg2-binary==2.9.3 

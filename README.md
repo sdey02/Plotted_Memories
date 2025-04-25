@@ -51,13 +51,16 @@ This is an example of how to list things you need to use the software and how to
 * ssl
 * certifi
 * spacy
+* python-dotenv (for PostgreSQL support)
+* psycopg2-binary (for PostgreSQL support)
   ```sh
   pip3 install cohere
   pip3 install geopy
-  pip3 isntall flask
-  pip3 isntall ssl
-  pip3 isntall certifi
-  pip3 isntall spacy
+  pip3 install flask
+  pip3 install ssl
+  pip3 install certifi
+  pip3 install spacy
+  pip3 install python-dotenv psycopg2-binary
   ```
 
 ### Installation
@@ -67,10 +70,24 @@ This is an example of how to list things you need to use the software and how to
    git clone https://github.com/sdey02/Plotted_Memories.git
    ```
 
-2. In app.py
+2. Start the application
    ```sh
    python3 app.py
    ```
+
+### Database Configuration
+
+By default, the application uses SQLite. To switch to PostgreSQL:
+
+1. Install PostgreSQL on your system
+2. Create a database and user (see `postgres_setup_guide.md` for details)
+3. Configure the `.env` file with your PostgreSQL connection string:
+   ```
+   DATABASE_URL=postgresql://username:password@localhost:5432/plotted_memories
+   ```
+4. Run the application - it will automatically use PostgreSQL and create the necessary tables
+
+To verify which database is in use, navigate to `/db_info` in the application.
    
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
